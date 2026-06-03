@@ -23,12 +23,25 @@ VelozyMoto AI Assistant es un sistema de chatbot conversacional que automatiza l
 - **Indicador de carga** mientras el chatbot responde
 - **Botón para limpiar chat**
 
+### 🆕 Funcionalidades Avanzadas
+
+- **🔒 Panel Administrativo Seguro**: Acceso protegido por contraseña para gestión avanzada
+- **😊 Análisis de Sentimientos**: Detección automática del sentimiento del usuario en cada mensaje
+- **📊 Dashboard DSS**: Sistema de soporte a decisiones con métricas y visualizaciones
+- **📈 Métricas y Estadísticas**: Análisis de conversaciones, satisfacción y actividad
+- **📄 Reportes Semanales**: Generación automática de reportes con exportación CSV
+- **⭐ Sistema de Evaluación**: Calificación del chatbot por parte de los usuarios
+- **🎤 Interacción por Voz**: Simulación de atención telefónica inteligente
+
 ## 🛠️ Tecnologías Utilizadas
 
 - **Python**: Lenguaje de programación principal
 - **Streamlit**: Framework para la interfaz web
 - **Groq API**: Modelo llama-3.1-8b-instant para respuestas inteligentes
 - **python-dotenv**: Gestión de variables de entorno
+- **pandas**: Manipulación y análisis de datos
+- **plotly**: Visualizaciones interactivas
+- **speechrecognition**: Reconocimiento de voz (simulado)
 
 ## 📦 Instalación
 
@@ -70,13 +83,16 @@ Crea un archivo `.env` en la raíz del proyecto basándote en el archivo `.env.e
 cp .env.example .env
 ```
 
-Edita el archivo `.env` y agrega tu API Key de Groq:
+Edita el archivo `.env` y agrega tus credenciales:
 
 ```
-OPENAI_API_KEY=gsk-your-actual-groq-api-key-here
+GROQ_API_KEY=gsk-your-actual-groq-api-key-here
+ADMIN_PASSWORD=your_admin_password_here
 ```
 
-**Nota:** Para obtener una API Key de Groq, visita [https://console.groq.com/keys](https://console.groq.com/keys)
+**Nota:** 
+- Para obtener una API Key de Groq, visita [https://console.groq.com/keys](https://console.groq.com/keys)
+- La contraseña de administración es opcional. Si no se configura, usa `admin123` por defecto
 
 ## ▶️ Ejecución
 
@@ -97,6 +113,12 @@ La aplicación se abrirá automáticamente en tu navegador en `http://localhost:
 - **Historial persistente**: La conversación se mantiene mientras uses la aplicación
 
 ### Sidebar
+
+- **🧭 Navegación**:
+  - 💬 Chat: Interfaz principal de conversación
+  - 🎤 Voz: Simulación de interacción por voz
+  - ⭐ Evaluación: Sistema de calificación del chatbot
+  - 🔐 Login Admin: Acceso al panel administrativo
 
 - **Información del negocio**: Horarios, métodos de pago, tiempos de entrega
 - **Botones rápidos**:
@@ -200,7 +222,7 @@ ChatbotVM/
 
 ## 🚨 Solución de Problemas
 
-### Error: "OPENAI_API_KEY not found"
+### Error: "GROQ_API_KEY not found"
 
 Asegúrate de:
 1. Haber creado el archivo `.env`
@@ -221,12 +243,50 @@ Verifica:
 2. Que tu API Key de Groq sea válida
 3. Que el modelo `llama-3.1-8b-instant` esté disponible en tu cuenta
 
+### Error en análisis de sentimientos
+
+El análisis de sentimientos usa la misma API de Groq. Si falla, el chatbot continuará funcionando pero sin detección de sentimiento.
+
+### Error: "Could not find PyAudio"
+
+PyAudio es necesario para usar el micrófono en la función de voz. Para instalarlo:
+
+**Windows:**
+```bash
+pip install pyaudio
+```
+
+**Linux:**
+```bash
+sudo apt-get install python3-pyaudio
+pip install pyaudio
+```
+
+**Mac:**
+```bash
+brew install portaudio
+pip install pyaudio
+```
+
+**Nota:** Si PyAudio no está instalado, la función de voz aún funcionará usando la opción de archivo de audio.
+
+### No puedo acceder al panel administrativo
+
+Verifica:
+1. Que hayas configurado `ADMIN_PASSWORD` en `.env`
+2. Que estés usando la contraseña correcta
+3. Si no configuraste contraseña, usa `admin123`
+
 ## 📝 Notas Adicionales
 
 - El chatbot mantiene un contexto de los últimos 10 mensajes
 - Las respuestas se generan con una temperatura de 0.7 para balance entre creatividad y consistencia
 - El máximo de tokens por respuesta es 500 para mantener respuestas concisas
 - El sistema prompt está diseñado para mantener el rol de asesor humano sin revelar que es una IA
+- **Los datos de conversaciones, sentimientos y ratings se almacenan en memoria de sesión** (se pierden al recargar)
+- Para persistencia de datos en producción, considerar implementar base de datos
+- El análisis de sentimientos se realiza en tiempo real usando IA de Groq
+- Los reportes se pueden exportar en formato CSV para análisis externo
 
 ## 🤝 Soporte
 
