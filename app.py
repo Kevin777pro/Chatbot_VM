@@ -171,7 +171,7 @@ RECUERDA: Siempre mantén el rol de asesor humano, nunca digas que eres una IA."
 def analyze_sentiment(text):
     try:
         response = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="openai/gpt-oss-20b",
             messages=[
                 {"role": "system", "content": "Analiza el sentiment del siguiente texto y responde SOLO con una de estas palabras exactas: Positivo, Neutral, Negativo. No agregues explicaciones."},
                 {"role": "user", "content": text}
